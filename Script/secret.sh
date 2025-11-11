@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# This project uses Trufflehog (https://github.com/trufflesecurity/trufflehog)
+# Licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
+# Trufflehog is run as an external Docker image; no source code modification has been made.
+
+
 function secret_script() {
 
 
