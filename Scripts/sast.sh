@@ -44,6 +44,28 @@ function sast_script() {
 
     local semgrep_exit=$?
 
-  
+    # ==================== OPENGREP ====================
+    echo -e "\n\033[1;97m=== OPENGREP ===\033[0m"
+
+    local opengrep_bin="./opengrep_manylinux_x86"
+
+    if [[ -x "$opengrep_bin" ]]; then
+        "$opengrep_bin" scan \
+            --sarif-output="$OUTPUT_DIR/opengrep_report.json" \
+            "$OUTPUT_DIR/decompiled-by-$DEC_TOOL_NAME" \
+            --config "$(pwd)/rules" 2>&1 | awk '{print} /Code Findings/ {exit}'
+    else
+        echo -e "\n⚠️  OpenGrep binary not found at: $opengrep_bin"
+        echo -e "⚠️  Skipping OpenGrep scan..."
+    fi
+
+
+    echo -e "\n✅ Analysis completed!"
+    echo -e "\n📁 Results directory: $OUTPUT_DIR"
+
+}
+
+
+
 }
 
